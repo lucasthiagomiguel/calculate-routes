@@ -1,0 +1,14 @@
+{
+    "type":"postgres",
+    "hots":"localhost",
+    "port":5432,
+    "username":"postgres",
+    "password":"postgres",
+    "database":"firstdocy",
+    "migrations": [
+        "./src/migration/*.ts"
+    ],
+    "cli":{
+        "migrationsDir":"./src/shared/typeorm/migrations"
+    }
+}

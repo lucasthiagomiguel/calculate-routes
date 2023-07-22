@@ -1,0 +1,35 @@
+{
+	"compilerOptions": {
+		"target": "es2020",
+		"lib": ["es5", "es6", "ES2020"],
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"allowJs": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": true,
+		"strictPropertyInitialization": false,
+        "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+            "paths": {
+            "@config/*": [
+                "src/config/*"
+            ],
+            "@modules/*": [
+                "src/modules/*"
+            ],
+            "@shared/*": [
+                "src/shared/*"
+            ]
+            },
+	},
+	"include": ["src/**/*", "src/data-source.ts"],
+	"exclude": ["node_modules", "dist"],
+	"ts-node": {
+		"files": true
+	}
+}
