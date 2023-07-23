@@ -23,7 +23,7 @@ export class Documents {
     @Column({ type: 'text', nullable: true })
 	document_image: string
 
-	@Column()
+	@Column({ type: 'int', nullable: true })
 	id_users: number
 
     @Column()

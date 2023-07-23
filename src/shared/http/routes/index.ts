@@ -1,10 +1,9 @@
+import documentsControllerRouter from "../../../modules/documents/routes/documentsRoutes";
 import { Router } from "express";
 
 const routes = Router();
 
-routes.get('/',(req,res) =>{
-    return res.json({menssage:'Hello dev'});
-});
+routes.use('/documents', documentsControllerRouter)
 
 
 export default routes

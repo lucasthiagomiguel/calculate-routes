@@ -10,8 +10,8 @@
       "lint-fix": "eslint . --ext .ts --fix",
       "typeorm": "typeorm-ts-node-commonjs",
       "start": "ts-node src/index.ts",
-      "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
-		"migration:run": "typeorm-ts-node-commonjs -d ./src/shared/typeorm/data-source.ts migration:run"
+      "migration:generate": "rm -r ./src/migrations && typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
+		"migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run"
    },
    "devDependencies": {
       "@types/cors": "^2.8.13",

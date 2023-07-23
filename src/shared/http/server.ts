@@ -28,7 +28,7 @@ AppDataSource.initialize()
             })
         });
 
-        app.listen(333, () => {
+        app.listen(3333, () => {
             console.log('testando app ')
         })
     })
