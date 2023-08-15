@@ -2,29 +2,24 @@ import {
 	Column,
 	CreateDateColumn,
 	Entity,
-	PrimaryGeneratedColumn,
+	ObjectIdColumn,
+    ObjectId,
     UpdateDateColumn,
 } from 'typeorm'
 
-@Entity('documents')
-export class Documents {
-	@PrimaryGeneratedColumn()
-	id: number
+@Entity('users')
+export class Users {
+	@ObjectIdColumn()
+    id: ObjectId
 
 	@Column({ type: 'text' })
 	name: string
 
 	@Column({ type: 'text', nullable: true })
-	type_documents: string
+	email: string
 
     @Column({ type: 'text', nullable: true })
-	document_content: string
-
-    @Column({ type: 'text', nullable: true })
-	document_image: string
-
-	@Column({ type: 'int', nullable: true })
-	id_users: number
+	password: string
 
     @Column()
 	status: Boolean

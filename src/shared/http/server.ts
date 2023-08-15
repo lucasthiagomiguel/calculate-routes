@@ -1,8 +1,8 @@
 
 import express, { NextFunction, Request, Response }  from "express";
 import cors from "cors";
-import routes from "./routes";
-import AppEerror from "./erros/AppErrors";
+import routes from "../routes";
+import AppEerror from "../erros/AppErrors";
 import {AppDataSource} from  "../../data-source"
 
 AppDataSource.initialize()

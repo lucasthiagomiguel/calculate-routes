@@ -1,4 +1,4 @@
-class AppEerror
+class AppError
 {
     public readonly message: string;
     public readonly statusCode: number;
@@ -8,4 +8,4 @@ class AppEerror
         this.statusCode = statusCode;
     }
 }
-export default AppEerror;
+export default AppError;
