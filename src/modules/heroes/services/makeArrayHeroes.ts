@@ -1,3 +1,8 @@
+import { ageHeroes } from "./ageHeroes";
+import { attack } from "./attackHeroes";
+import { exp } from "./experienceHeroes";
+
+
 export const weaponsHeroes = (weapons:any) =>{
     let weaponsArray =[];
     for (let index = 0; index < weapons.length; index++) {
@@ -8,18 +13,15 @@ export const weaponsHeroes = (weapons:any) =>{
     return weaponsArray
 }
 
-export const attributes = (attributes:any) =>{
-    let attributesArray = new Array();
-    for (let index = 0; index < attributes.length; index++) {
-        attributesArray.push(attributes[index].strength);
-        attributesArray.push(attributes[index].dexterity);
-        attributesArray.push(attributes[index].constitution);
-        attributesArray.push(attributes[index].intelligence);
-        attributesArray.push(attributes[index].wisdom);
-        attributesArray.push(attributes[index].charisma);
+export const lisAllheroes = (dataHeroes:any) =>{
+    let listHeroes = []
+    for (let index = 0; index < dataHeroes.length; index++) {
+        listHeroes.push({name: dataHeroes[index].name, age: ageHeroes(dataHeroes[index].birthday),weapons:dataHeroes[index].weapons.length, attack: attack(dataHeroes[index].weapons), attr: dataHeroes[index].keyAttribute,exp:exp(ageHeroes(dataHeroes[index].birthday),attack(dataHeroes[index].weapons)) });
+
 
     }
-    return attributesArray
+    console.log(listHeroes)
+    return listHeroes
 }
 
 

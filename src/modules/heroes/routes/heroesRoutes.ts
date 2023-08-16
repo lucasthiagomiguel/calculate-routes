@@ -12,6 +12,11 @@ heroesRouter.post(
   heroesController.create,
 );
 
+heroesRouter.get(
+    '/',
+    heroesController.list,
+);
+
 
 
 export default heroesRouter;

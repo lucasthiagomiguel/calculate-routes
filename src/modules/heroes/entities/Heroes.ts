@@ -13,19 +13,19 @@ export class Heroes {
 	@ObjectIdColumn()
     id: ObjectId
 
-	@Column({ type: 'text' })
+	@Column({ type: 'text',nullable: false })
 	name: string
 
-	@Column({ type: 'text', nullable: true })
+	@Column({ type: 'text', nullable: false })
 	nickname: string
 
-    @Column({ type: 'text', nullable: true })
+    @Column({ type: 'text', nullable: false })
 	birthday: string
 
-    @Column({ type: 'text' })
+    @Column({ type: 'text',nullable: false })
 	id_users: string
 
-    @Column({type:"json",nullable: true})
+    @Column({type:"json",nullable: false})
     weapons: {
         name: string;
         mod: number;
@@ -33,7 +33,7 @@ export class Heroes {
         equipped: boolean
     }
 
-    @Column({type:"json",nullable: true})
+    @Column({type:"json",nullable: false})
     attributes: {
         strength: number;
         dexterity: number;
@@ -43,8 +43,11 @@ export class Heroes {
         charisma:number
     }
 
-    @Column({ type: 'text', nullable: true })
+    @Column({ type: 'text', nullable: false })
 	keyAttribute: string
+
+    @Column({ type: 'boolean',nullable: false })
+	status: boolean
 
     @CreateDateColumn()
 	created_at: Date

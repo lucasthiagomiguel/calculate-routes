@@ -1,8 +1,7 @@
 import { Request, Response } from 'express'
 import { heroesRepository } from '../repositories/HeroesRepository'
 import AppEerror from "../../../shared/erros/AppErrors"
-import {weaponsHeroes,attributes} from '../services/makeArrayHeroes'
-import { attack } from '../services/attackHeroes'
+import {weaponsHeroes,lisAllheroes} from '../services/makeArrayHeroes'
 import { ageHeroes } from '../services/ageHeroes'
 interface IRequest {
     name:string,
@@ -10,7 +9,9 @@ interface IRequest {
     birthday:string,
     weapons:[] | undefined,
     attributes:any,
-    keyAttribute:string
+    keyAttribute:string,
+    status:boolean,
+    id_users:string
   }
 
 export  default class HeroesController {
@@ -20,7 +21,8 @@ export  default class HeroesController {
             birthday,
             weapons,
             attributes,
-            keyAttribute }:IRequest = req.body;
+            keyAttribute,
+            id_users }:IRequest = req.body;
 
         try {
             const heroesExists = await heroesRepository.findOneBy({ name: String(name) })
@@ -32,8 +34,6 @@ export  default class HeroesController {
             if(ageHeroes(birthday) == null){
                 throw new AppEerror('invalid date')
             }
-            attack(weapons)
-            ageHeroes(birthday)
 
             const heroes = heroesRepository.create({
 
@@ -42,7 +42,9 @@ export  default class HeroesController {
                 birthday,
                 weapons:weaponsHeroes(weapons),
                 attributes,
-                keyAttribute
+                keyAttribute,
+                status:1,
+                id_users
             })
             await heroesRepository.save(heroes)
 
@@ -60,13 +62,18 @@ export  default class HeroesController {
 
 	async list(req: Request, res: Response) {
 		try {
-			const rooms = await heroesRepository.find({
-				relations: {
+			const heroesList = await heroesRepository.find({
 
-				},
 			})
+            if(!heroesList){
+                throw new AppEerror('There are no heroes')
 
-			return res.json(rooms)
+            }
+
+
+            const listAllHeroes = lisAllheroes(heroesList)
+
+			return res.json(listAllHeroes)
 		} catch (error) {
 			console.log(error)
 			return res.status(500).json({ message: 'Internal Sever Error' })
