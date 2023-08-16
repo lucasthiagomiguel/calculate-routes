@@ -4,6 +4,8 @@ import AppEerror from "../../../shared/erros/AppErrors"
 import {weaponsHeroes,lisAllheroes} from '../services/makeArrayHeroes'
 import { ageHeroes } from '../services/ageHeroes'
 import { attrHeroes } from '../services/atributos'
+import { strict } from 'assert'
+import { ObjectId } from 'mongodb'
 interface IRequest {
     name:string,
     nickname:string,
@@ -11,7 +13,7 @@ interface IRequest {
     weapons:[] | undefined,
     attributes:any,
     keyAttribute:string,
-    status:boolean,
+    status:number,
     id_users:string
   }
 
@@ -50,7 +52,7 @@ export  default class HeroesController {
             await heroesRepository.save(heroes)
 
 
-            return res.json(heroes);
+            return res.status(200).json(heroes);
 		} catch (error) {
 			console.log(error)
 
@@ -62,9 +64,15 @@ export  default class HeroesController {
 
 
 	async list(req: Request, res: Response) {
+        const  filter  = req.query.filter
+        let filterHeroes= false
 		try {
-			const heroesList = await heroesRepository.find({
 
+			const heroesList = await heroesRepository.find({
+                where: {
+                    status: 1,
+
+                },
 			})
             if(!heroesList){
                 throw new AppEerror('There are no heroes')
@@ -72,9 +80,93 @@ export  default class HeroesController {
             }
 
 
-            const listAllHeroes = lisAllheroes(heroesList)
+            if(filter == 'heroes'){
+                filterHeroes = true
+            }
 
-			return res.json(listAllHeroes)
+            const listAllHeroes = lisAllheroes(heroesList,filterHeroes)
+            console.log(listAllHeroes)
+            if(listAllHeroes == null){
+                return res.status(200).json({message:"nao existe heroes"})
+            }
+
+			return res.status(200).json(listAllHeroes)
+		} catch (error) {
+			console.log(error)
+			return res.status(500).json({ message: 'Internal Sever Error' })
+		}
+	}
+
+
+
+    async show(req: Request, res: Response) {
+		const  {id}  = req.params
+
+		try {
+            const heroes = await heroesRepository.findOneBy({ _id: new ObjectId(id) })
+            console.log(heroes)
+
+			if (!heroes) {
+				throw new AppEerror('There are no heroes')
+			}
+
+
+
+			return res.status(200).json(heroes)
+		} catch (error) {
+			console.log(error)
+			return res.status(500).json({ message: 'Internal Sever Error' })
+		}
+	}
+
+    async update(req: Request, res: Response) {
+		const { nickname } = req.body
+		const  {id}  = req.params
+
+		try {
+            const heroes = await heroesRepository.findOneBy({ _id: new ObjectId(id) })
+            console.log(heroes)
+
+			if (!heroes) {
+				throw new AppEerror('There are no heroes')
+			}
+
+
+
+			const heroesUpdate = {
+				...heroes,
+				nickname: nickname,
+			}
+            await heroesRepository.save(heroesUpdate)
+
+
+			return res.status(200).json(heroesUpdate)
+		} catch (error) {
+			console.log(error)
+			return res.status(500).json({ message: 'Internal Sever Error' })
+		}
+	}
+
+    async delete(req: Request, res: Response) {
+		const  {id}  = req.params
+
+		try {
+            const herores = await heroesRepository.findOneBy({ _id: new ObjectId(id) })
+
+			if (!herores) {
+				throw new AppEerror('There are no heroes')
+			}
+
+
+
+			const heroresUpdate = {
+				...herores,
+				status: 0,
+			}
+            await heroesRepository.save(heroresUpdate)
+
+
+			return res.status(200).json({menssage:"deletado com sucesso"})
 		} catch (error) {
 			console.log(error)
 			return res.status(500).json({ message: 'Internal Sever Error' })

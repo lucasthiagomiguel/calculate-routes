@@ -13,10 +13,20 @@ export const weaponsHeroes = (weapons:any) =>{
     return weaponsArray
 }
 
-export const lisAllheroes = (dataHeroes:any) =>{
+export const lisAllheroes = (dataHeroes:any,filter: boolean) =>{
     let listHeroes = []
     for (let index = 0; index < dataHeroes.length; index++) {
-        listHeroes.push({name: dataHeroes[index].name, age: ageHeroes(dataHeroes[index].birthday),weapons:dataHeroes[index].weapons.length, attack: attack(dataHeroes[index].weapons), attr: dataHeroes[index].keyAttribute,exp:exp(ageHeroes(dataHeroes[index].birthday),attack(dataHeroes[index].weapons)) });
+        if(filter){
+            if(dataHeroes[index].exp > 0){
+                listHeroes.push({
+                    id:dataHeroes[index].id,name: dataHeroes[index].name, age: ageHeroes(dataHeroes[index].birthday),weapons:dataHeroes[index].weapons.length, attack: attack(dataHeroes[index].weapons), attr: dataHeroes[index].keyAttribute,exp:exp(ageHeroes(dataHeroes[index].birthday),attack(dataHeroes[index].weapons)),status:dataHeroes[index].status });
+            }else{
+                return null
+            }
+        }else{
+            listHeroes.push({
+                id:dataHeroes[index].id,name: dataHeroes[index].name, age: ageHeroes(dataHeroes[index].birthday),weapons:dataHeroes[index].weapons.length, attack: attack(dataHeroes[index].weapons), attr: dataHeroes[index].keyAttribute,exp:exp(ageHeroes(dataHeroes[index].birthday),attack(dataHeroes[index].weapons)),status:dataHeroes[index].status });
+        }
 
 
     }

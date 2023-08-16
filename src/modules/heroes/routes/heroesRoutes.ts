@@ -17,6 +17,19 @@ heroesRouter.get(
     heroesController.list,
 );
 
+heroesRouter.get(
+    '/:id',
+    heroesController.show,
+);
+heroesRouter.put(
+    '/:id',
+    heroesController.update,
+);
+heroesRouter.delete(
+    '/:id',
+    heroesController.delete,
+);
+
 
 
 export default heroesRouter;

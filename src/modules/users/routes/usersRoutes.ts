@@ -10,7 +10,6 @@ const usersController = new UsersController();
 
 usersRouter.post(
   '/',
-  isAuthenticated,
   usersController.create,
 );
 

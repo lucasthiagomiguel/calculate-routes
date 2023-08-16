@@ -10,8 +10,8 @@ import {
 
 @Entity('heroes')
 export class Heroes {
-	@ObjectIdColumn()
-    id: ObjectId
+	@ObjectIdColumn({ type: 'text'})
+    id: string
 
 	@Column({ type: 'text',nullable: false })
 	name: string
@@ -47,7 +47,7 @@ export class Heroes {
 	keyAttribute: string
 
     @Column({ type: 'boolean',nullable: false })
-	status: boolean
+	status: number
 
     @CreateDateColumn()
 	created_at: Date
