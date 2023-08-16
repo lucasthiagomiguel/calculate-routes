@@ -3,6 +3,7 @@ import { heroesRepository } from '../repositories/HeroesRepository'
 import AppEerror from "../../../shared/erros/AppErrors"
 import {weaponsHeroes,lisAllheroes} from '../services/makeArrayHeroes'
 import { ageHeroes } from '../services/ageHeroes'
+import { attrHeroes } from '../services/atributos'
 interface IRequest {
     name:string,
     nickname:string,
@@ -34,7 +35,7 @@ export  default class HeroesController {
             if(ageHeroes(birthday) == null){
                 throw new AppEerror('invalid date')
             }
-
+            attrHeroes(2)
             const heroes = heroesRepository.create({
 
                 name,
