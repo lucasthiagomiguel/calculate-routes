@@ -52,11 +52,11 @@ export  default class HeroesController {
             await heroesRepository.save(heroes)
 
 
-            return res.status(200).json(heroes);
+            return res.status(200).json({status:1,heroes});
 		} catch (error) {
 			console.log(error)
 
-			return res.status(500).json( error )
+			return res.status(500).json( {status:0,error} )
 		}
 
 
@@ -87,13 +87,13 @@ export  default class HeroesController {
             const listAllHeroes = lisAllheroes(heroesList,filterHeroes)
             console.log(listAllHeroes)
             if(listAllHeroes == null){
-                return res.status(200).json({message:"nao existe heroes"})
+                return res.status(200).json({status:0,message:"nao existe heroes"})
             }
 
 			return res.status(200).json(listAllHeroes)
 		} catch (error) {
 			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
+			return res.status(500).json({status:0, message: 'Internal Sever Error' })
 		}
 	}
 
@@ -115,7 +115,7 @@ export  default class HeroesController {
 			return res.status(200).json(heroes)
 		} catch (error) {
 			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
+			return res.status(500).json({status:0, message: 'Internal Sever Error' })
 		}
 	}
 
@@ -140,10 +140,10 @@ export  default class HeroesController {
             await heroesRepository.save(heroesUpdate)
 
 
-			return res.status(200).json(heroesUpdate)
+			return res.status(200).json({status:1,heroesUpdate})
 		} catch (error) {
 			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
+			return res.status(500).json({status:0, message: 'Internal Sever Error' })
 		}
 	}
 
@@ -166,10 +166,10 @@ export  default class HeroesController {
             await heroesRepository.save(heroresUpdate)
 
 
-			return res.status(200).json({menssage:"deletado com sucesso"})
+			return res.status(200).json({status:1,menssage:"deletado com sucesso"})
 		} catch (error) {
 			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
+			return res.status(500).json({ status:0,message: 'Internal Sever Error' })
 		}
 	}
 }

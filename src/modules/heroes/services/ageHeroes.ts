@@ -2,11 +2,16 @@ export const ageHeroes = (ageheroes:any) =>{
     var age =  ageheroes.split('/')
     var data = new Date();
     var ano = data.getFullYear();
+    var anoHeroes
     age = parseInt(age[2])
-    if(ano > age){
+    anoHeroes = parseInt(age[0])
+    if(ano > age ){
         age = ano - age
 
-    }else{
+    }else if(ano > anoHeroes){
+        age = ano - anoHeroes
+    }
+    else{
         return null
     }
 
