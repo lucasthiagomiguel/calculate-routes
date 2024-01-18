@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { usersRepository } from '../repositories/UsersRepository'
 import AppEerror from "../../../shared/erros/AppErrors"
+import { findUserEmailQuery,createUserQuery } from '@shared/querys';
 import { hash } from 'bcryptjs';
 interface IRequest {
     name:string,
@@ -11,33 +11,45 @@ interface IRequest {
 
 export  default class UsersController {
 	public async create(req: Request, res: Response): Promise<Response> {
-        const { name, email,password }:IRequest  = req.body;
+    const { name, email,password }:IRequest  = req.body; 
+    try {
+      
+      const result = await findUserEmailQuery(email)
+          
 
-        try {
-            const usersExists = await usersRepository.findOneBy({ email: String(email) })
-
-            if(usersExists){
-                 throw new AppEerror('There  is already  one users  with this email')
-            }
-
-            const hashedPassword = await hash(password,8);
-            const users = usersRepository.create({
-                name,
-                email,
-                password:hashedPassword,
-                status:1
-            })
-            await usersRepository.save(users)
-
-
-            return res.json(users);
-		} catch (error) {
-			console.log(error)
-
-			return res.status(500).json( error )
-		}
-
-
+      if(result.rowCount != 0){
+        //throw new AppEerror('There  is already  one users  with this email')
+        return res.status(200).json( {status:200,menssage:'There  is already  one users  with this email'} );
       }
+          
+      const hashedPassword = await hash(password,8);
+      var filds = ['name','email','password','status'];
+
+      function changeFildsForString(...filds:any){
+        return filds.toString();
+      }
+
+      function changeValuesForString(...filds:any){
+        var changeAllArrayForString = '';
+        for (let index = 0; index < filds.length; index++) {
+          const element = filds[index];
+          changeAllArrayForString += `'${element}',`;          
+        }
+        return changeAllArrayForString
+      }
+
+          
+      const users = await createUserQuery('users',changeFildsForString(filds),changeValuesForString(name, email,hashedPassword,1));
+      if(users){
+        console.log('deu tudo cert',users)
+        return res.status(200).json( {status:200,menssage:'user created successfully',user:{name, email,status:1}} );
+      }
+      return res.status(500).json( {status:500,menssage:'servidor error'} );
+    } catch (error) {
+    console.log(error)
+
+    return res.status(500).json( error )
+    }
+  }
 
 }
