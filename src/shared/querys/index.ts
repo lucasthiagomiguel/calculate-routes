@@ -1,8 +1,8 @@
 import  {DataSource}  from '../../data-source';
 import AppEerror from "@shared/erros/AppErrors"
 
-export const findUserEmailQuery = (email: string) =>{
-   return DataSource.query(`SELECT * FROM Users WHERE email = '${email}'`).catch((err) => {console.error(err); return err})
+export const findUserEmailQuery = (repository: string,email: string) =>{
+   return DataSource.query(`SELECT * FROM ${repository} WHERE email = '${email}'`).catch((err) => {console.error(err); return err})
 
 }
 

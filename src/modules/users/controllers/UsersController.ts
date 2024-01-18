@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import AppEerror from "../../../shared/erros/AppErrors"
 import { findUserEmailQuery,createUserQuery } from '@shared/querys';
+import {repositoryUsers} from '../repositories/UsersRepository'
 import { hash } from 'bcryptjs';
 interface IRequest {
     name:string,
@@ -14,7 +14,7 @@ export  default class UsersController {
     const { name, email,password }:IRequest  = req.body; 
     try {
       
-      const result = await findUserEmailQuery(email)
+      const result = await findUserEmailQuery(repositoryUsers,email)
           
 
       if(result.rowCount != 0){
@@ -39,14 +39,14 @@ export  default class UsersController {
       }
 
           
-      const users = await createUserQuery('users',changeFildsForString(filds),changeValuesForString(name, email,hashedPassword,1));
+      const users = await createUserQuery(repositoryUsers,changeFildsForString(filds),changeValuesForString(name, email,hashedPassword,1));
       if(users){
         console.log('deu tudo cert',users)
         return res.status(200).json( {status:200,menssage:'user created successfully',user:{name, email,status:1}} );
       }
       return res.status(500).json( {status:500,menssage:'servidor error'} );
     } catch (error) {
-    console.log(error)
+    // console.log(error)
 
     return res.status(500).json( error )
     }

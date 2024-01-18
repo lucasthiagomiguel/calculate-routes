@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { usersRepository } from '../repositories/UsersRepository'
+import { repositoryUsers } from '../repositories/UsersRepository'
+import { findUserEmailQuery,createUserQuery } from '@shared/querys';
 import AppError from "../../../shared/erros/AppErrors"
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
@@ -21,7 +22,7 @@ export  default class SessionController {
         const { email,password } = req.body;
 
         try {
-            const users = await usersRepository.findOneBy({ email: String(email) })
+            const users = await findUserEmailQuery(repositoryUsers,email)
 
             if (!users) {
                 throw new AppError('Incorrect email/password combination.', 401);
