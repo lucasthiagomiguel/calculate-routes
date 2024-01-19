@@ -1,32 +1,25 @@
-# Awesome Project Build with TypeScript postgres
+Projeto Incrível Desenvolvido com TypeScript e PostgreSQL
 Instruções de Instalação:
-    Primeiro instale node.js (versao usada nesse projeto v18.18.0), manter o mesmo nivel ou superior para que nao ocorra erro por compatibilidade.
-    apos configurar todo ambiente do node. instale o postgres e configure ele por completo (versao utilizada nesse projeto Postgres 16) manter o mesmo nivel ou superior para que nao ocorra erro por compatibilidade.
-    apos todas essa ferramentas configuradas.
+Primeiro, instale o Node.js (versão utilizada neste projeto: v18.18.0). Mantenha a mesma versão ou superior para evitar erros de compatibilidade.
+Após configurar todo o ambiente Node.js, instale o PostgreSQL e faça a configuração completa (versão utilizada neste projeto: PostgreSQL 16). Mantenha a mesma versão ou superior para evitar erros de compatibilidade.
+Com todas essas ferramentas configuradas,
 Configuração:
-    rode os comando e sigas os passos 
-    1. Run `npm i` command: ele irar baixar todas as dependencias do projeto
-    2. na raiz do arquivo existe um arquivo chamado .env, nele vai a configuracao inicial do projeto, preencher com as informacoes de acesso ao banco postgres
-    3. apos preencher o arquivo .env, rode o comando npm run test, ele irar testar sua conexao com o banco, ocorrendo tudo certo voce deve ver uma mensagem no seu terminal com a mensagem bem sucedida, ou algum erro de conexao.
-    4. apos a conexao bem sucedida execulte npm run migration:run, esse comando irar criar as tabelas necessarias para testar o projeto, voce deve ver no terminal a resposta com sucesso, ou erro.
-    5. apos tudo configurado tabelas criadas, para rodar o projeto rode npm run dev, voce deve ver no terminal a mensagem testando app, isso significa que esta rodando o projeto
-Estrutura do Projeto:
-    A estrutura das pasta esta bem divida, dentro de src, esta arquitetado da seguinte maneira, 
-    src--
-        |        
-         @types:serve para criar seus proprio tipos em typescript.
-        |
-         CONFIG:sera arquivos de configuracoes, como chaves, uploads entre outros.
-        |
-         MIGRATIONS:dentro dessa pasta deve encontra estrutura para criar tabelas no banco de dados
-        |
-         MODULES:dentro dessa pasta fica toda logica da apllicacao incluindo regras de negocio, controllers, router de cada modulo,por exemplo, tudo relacionado a usuario esta dentro da pasta users   
-        |
-          SHARED: dentro dessa pasta esta tudo que sera compartilhado com toda a aplicacao, como funcoes de erros, funcoes auxiliares como consultas SQL. ou seja tudo que voce precisar compartilhar o mesmo codigos em varias partes da aplicao esta dentro dessa pastas  
-        |
-         teste: aqui esta tudo relacionado a teste da aplicacao, como teste automatizados, entre outros tipos de teste que precise fazer
-        |
-        por ultimo um arquivo na raiz que esta fazendo a configuracao do banco, poderia ter posto dentro da pasta config,mas decidi deixar ali para facilitar mais
-Título e Descrição:
-    essa aplicacao tem com o objetivo voce se cadastra em usuarios como "empresa" apos efeituar seu cadastro voce pode cadastrar seus clientes e as coordenadas deles, a aplicacao irar atrelas todos os seus cliente a seu login entao toda vez que voce logar vera apenas tudo relacionado ao seu perfil, podendo editar, cadastrar novos, e tracar rotas, por exemplo voce deve cadastrar seus clientes com as coordenadas deles e a aplicacao mostrar a melhor pordem para ir ate seus clientes    
+Rode os comandos e siga os passos:
 
+Execute o comando npm i: ele irá baixar todas as dependências do projeto.
+Na raiz do arquivo, existe um arquivo chamado .env. Nele, estão as configurações iniciais do projeto. Preencha com as informações de acesso ao banco PostgreSQL.
+Após preencher o arquivo .env, execute o comando npm run test. Ele irá testar sua conexão com o banco. Se tudo estiver correto, você deve ver uma mensagem no seu terminal indicando sucesso ou algum erro de conexão.
+Após a conexão bem-sucedida, execute npm run migration:run. Este comando criará as tabelas necessárias para testar o projeto. Você deve ver no terminal uma resposta indicando sucesso ou erro.
+Com todas as configurações e tabelas criadas, para rodar o projeto, execute npm run dev. Você deve ver no terminal a mensagem "Testando app", indicando que o projeto está rodando.
+Estrutura do Projeto:
+A estrutura de pastas está bem organizada dentro de src:
+
+@types: Serve para criar seus próprios tipos em TypeScript.
+CONFIG: Arquivos de configuração, como chaves, uploads, entre outros.
+MIGRATIONS: Contém a estrutura para criar tabelas no banco de dados.
+MODULES: Toda a lógica da aplicação, incluindo regras de negócio, controllers, routers de cada módulo. Por exemplo, tudo relacionado a usuários está dentro da pasta users.
+SHARED: Contém funcionalidades compartilhadas em toda a aplicação, como funções de erros, funções auxiliares (consultas SQL, por exemplo).
+teste: Aqui estão todos os relacionados a testes da aplicação, como testes automatizados e outros tipos de teste necessários.
+Um arquivo na raiz configura o banco de dados. Poderia estar dentro da pasta config, mas optei por deixá-lo ali para facilitar.
+Título e Descrição:
+Esta aplicação tem como objetivo cadastrar usuários como "empresas". Após o cadastro, você pode cadastrar seus clientes e suas coordenadas. A aplicação vinculará todos os seus clientes ao seu login, então, sempre que você fizer login, verá apenas informações relacionadas ao seu perfil. Você pode editar, cadastrar novos clientes e traçar rotas. Por exemplo, ao cadastrar clientes com suas coordenadas, a aplicação mostrará a melhor ordem para visitá-los.
