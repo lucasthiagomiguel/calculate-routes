@@ -4,17 +4,12 @@ import { findUserEmailQuery } from '@shared/querys';
 import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 import authConfig from '@config/auth';
-import { Users } from '../entities/Users'
 
 interface IRequest {
     email: string;
     password: string;
   }
 
-  interface IResponse {
-    user: Users;
-    token: string;
-  }
 
 export  default class SessionController {
 	public async create(req: Request, res: Response) {
