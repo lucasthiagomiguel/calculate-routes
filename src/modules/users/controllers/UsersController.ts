@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import { findUserEmailQuery,createUserQuery } from '@shared/querys';
+import { changeValuesForString,changeFildsForString } from  '@shared/functions'
 import {repositoryUsers} from '../repositories/UsersRepository'
 import { hash } from 'bcryptjs';
 interface IRequest {
@@ -23,21 +24,8 @@ export  default class UsersController {
       }
           
       const hashedPassword = await hash(password,8);
+      
       var filds = ['name','email','password','status'];
-
-      function changeFildsForString(...filds:any){
-        return filds.toString();
-      }
-
-      function changeValuesForString(...filds:any){
-        var changeAllArrayForString = '';
-        for (let index = 0; index < filds.length; index++) {
-          const element = filds[index];
-          changeAllArrayForString += `'${element}',`;          
-        }
-        return changeAllArrayForString
-      }
-
           
       const users = await createUserQuery(repositoryUsers,changeFildsForString(filds),changeValuesForString(name, email,hashedPassword,1));
       if(users){

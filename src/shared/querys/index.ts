@@ -10,3 +10,8 @@ export const createUserQuery = (repository: string,fild:string[],valuesFilds: an
     return DataSource.query(`INSERT INTO ${repository} (${fild},created,updated) VALUES (${valuesFilds}now(),now())`).catch((err) => {console.log(err);  throw new AppEerror('syntax error at or near, in created users',err)})
  
  }
+
+ export const createAnQuery = (anyQuer: any) =>{
+    return DataSource.query(` ${anyQuer} `).catch((err) => {console.log(err);  throw new AppEerror('syntax error at or near, in created any query',err)})
+ 
+ }
