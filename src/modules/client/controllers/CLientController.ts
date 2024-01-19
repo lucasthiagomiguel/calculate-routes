@@ -8,7 +8,9 @@ interface IRequest {
     email:string,
     telefone:string,
     status:number,
-    id_users:string
+    id_users:string,
+    coordenada_x: number,
+    coordenada_y: number
   }
 
 export  default class ClientController {
@@ -16,7 +18,8 @@ export  default class ClientController {
         const { name,
             email,
             telefone,
-            status,
+            coordenada_x,
+            coordenada_y,
             id_users }:IRequest = req.body;
 
         try {
@@ -41,22 +44,19 @@ export  default class ClientController {
 		}
 
 
-      }
+    }
 
 
 	async list(req: Request, res: Response) {
-        const  filter  = req.query.filter
-        let filterHeroes= false
+        const  {id,name,email,telefone}  = req.query
+        
 		try {
-
-			
-
-
-            if(filter == 'heroes'){
-                filterHeroes = true
+            const clientExists = await createAnQuery(`SELECT * FROM ${repositoryClient} WHERE id_users=${id} AND name LIKE '%${name}%' OR email LIKE '%${email}%' OR telefone LIKE '%${telefone}%'`)
+            if(clientExists.rowCount == 0){
+                return res.status(200).json( {status:200,menssage:'There are no client'} );
             }
 
-
+            return res.status(200).json({status:0, client: clientExists.rows })
 		
 		} catch (error) {
 			console.log(error)

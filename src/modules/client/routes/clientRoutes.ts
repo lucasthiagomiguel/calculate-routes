@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import CLientController  from '../controllers/CLientController';
+import isAuthenticated from '@shared/middlewere/isAuthenticated';
 
 
 const clientRouter = Router();
 const clientController = new CLientController();
 
 
-
+clientRouter.use(isAuthenticated);
 clientRouter.post(
   '/',
   clientController.create,
