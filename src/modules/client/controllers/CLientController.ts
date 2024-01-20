@@ -27,12 +27,12 @@ export  default class ClientController {
             
 
             if(clientExists.rowCount != 0){
-                return res.status(200).json( {status:200,menssage:'There  is already  one client  with this information'} );
+                return res.status(400).json( {status:400,menssage:'There  is already  one client  with this information'} );
             }
 
             
            
-            const client = await createAnQuery(`INSERT INTO ${repositoryClient} (id_users,name,email,telefone,status,created,updated) VALUES ('${id_users}','${name}','${email}','${telefone}','1',now(),now())`)
+            const client = await createAnQuery(`INSERT INTO ${repositoryClient} (id_users,name,email,telefone,status,coordenada_x,coordenada_y,created,updated) VALUES ('${id_users}','${name}','${email}','${telefone}','1',${coordenada_x},${coordenada_y},now(),now())`)
             if(client){
                 return res.status(200).json( {status:200,menssage:'client created successfully',user:{name, email,telefone:1}} );
               }
@@ -46,14 +46,13 @@ export  default class ClientController {
 
     }
 
-
-	async list(req: Request, res: Response) {
+    async filter(req: Request, res: Response) {
         const  {id,name,email,telefone}  = req.query
         
 		try {
             const clientExists = await createAnQuery(`SELECT * FROM ${repositoryClient} WHERE id_users=${id} AND name LIKE '%${name}%' OR email LIKE '%${email}%' OR telefone LIKE '%${telefone}%'`)
             if(clientExists.rowCount == 0){
-                return res.status(200).json( {status:200,menssage:'There are no client'} );
+                return res.status(400).json( {status:200,menssage:'There are no client'} );
             }
 
             return res.status(200).json({status:0, client: clientExists.rows })
@@ -63,22 +62,40 @@ export  default class ClientController {
 			return res.status(500).json({status:0, message: 'Internal Sever Error' })
 		}
 	}
+	async list(req: Request, res: Response) {
+        const  {id_users}  = req.query;
+        console.log(id_users)
+		try {
+            const clientExists = await createAnQuery(`SELECT * FROM ${repositoryClient} WHERE id_users=${id_users} and status=true `)
+
+			if (clientExists.rowCount == 0) {
+                return res.status(400).json( {status:400,menssage:'There are no client'} );
+			}
+
+			return res.status(200).json({status:200,client:clientExists.rows})
+		} catch (error) {
+			console.log(error)
+			return res.status(500).json({ message: 'Internal Sever Error' })
+		}
+	}
+
+    
 
 
 
     async show(req: Request, res: Response) {
 		const  {id}  = req.params;
 		try {
-            const clientExists = await createAnQuery(`SELECT * FROM ${repositoryClient} WHERE id_users=${id} and status=true `)
+            const clientExists = await createAnQuery(`SELECT * FROM ${repositoryClient} WHERE id=${id} and status=true `)
 
 			if (clientExists.rowCount == 0) {
-                return res.status(200).json( {status:200,menssage:'There are no client'} );
+                return res.status(400).json( {status:400,menssage:'There are no client'} );
 			}
 
 			return res.status(200).json({status:200,client:clientExists.rows})
 		} catch (error) {
 			console.log(error)
-			return res.status(500).json({status:0, message: 'Internal Sever Error' })
+			return res.status(500).json({ message: 'Internal Sever Error' })
 		}
 	}
 
@@ -97,7 +114,7 @@ export  default class ClientController {
             
 
             if(clientExists.rowCount != 0){
-                return res.status(200).json( {status:200,menssage:'There  is already  one client  with this information'} );
+                return res.status(400).json( {status:400,menssage:'There  is already  one client  with this information'} );
             }
 
             const client = await createAnQuery(`UPDATE client SET ${clientUpdatedFildes} updated=now() WHERE id = ${id} `)

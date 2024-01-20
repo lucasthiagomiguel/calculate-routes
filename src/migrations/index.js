@@ -14,9 +14,10 @@ DataSource.query(`
 const createTablesQuery = `
     CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
-        nome VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        telefone VARCHAR(20),
+        password VARCHAR(255) NOT NULL,
+        telefone VARCHAR(50),
         status boolean,
         created Date,
         updated Date
@@ -27,7 +28,7 @@ const createTablesQuery = `
         id_users int NOT NULL,
         name VARCHAR(100) NOT NULL,
         email VARCHAR(100)  NOT NULL,
-        telefone VARCHAR(10)  NOT NULL,
+        telefone VARCHAR(50)  NOT NULL,
         coordenada_x NUMERIC,
         coordenada_y NUMERIC,
         status boolean,

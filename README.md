@@ -1,6 +1,6 @@
 Projeto Incrível Desenvolvido com TypeScript e PostgreSQL
 Instruções de Instalação:
-Primeiro, instale o Node.js (versão utilizada neste projeto: v18.18.0). Mantenha a mesma versão ou superior para evitar erros de compatibilidade.
+Primeiro, instale o Node.js (versão utilizada neste projeto: v16). Mantenha a mesma versão ou superior para evitar erros de compatibilidade.
 Após configurar todo o ambiente Node.js, instale o PostgreSQL e faça a configuração completa (versão utilizada neste projeto: PostgreSQL 16). Mantenha a mesma versão ou superior para evitar erros de compatibilidade.
 Com todas essas ferramentas configuradas,
 Configuração:
